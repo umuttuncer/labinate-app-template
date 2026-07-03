@@ -17,13 +17,16 @@ Analytics and a monetization hook are baked in — no app ships without them.
 ## New app in 5 steps
 
 1. `gh repo create labinate-<app> --public --template <owner>/labinate-app-template --clone`
-2. In `package.json`: set `name`. In `index.html` + `public/manifest.webmanifest`: set the app title/short_name.
-3. Replace `src/App.tsx` with the actual app. Keep the pattern:
+2. Enable Pages once (the workflow token can't create the Pages site itself):
+   `gh api repos/<owner>/labinate-<app>/pages -X POST -f build_type=workflow`
+3. In `package.json`: set `name`. In `index.html` + `public/manifest.webmanifest`:
+   set the app title/short_name. Set `VITE_APP_ID` in `.env.production`.
+4. Replace `src/App.tsx` with the actual app. Keep the pattern:
    `track()` on meaningful actions, `requirePro()` on the premium path.
-4. `npm install && npm run dev` to iterate; `npm run build` must pass.
+   `npm install && npm run dev` to iterate; `npm run build` must pass.
 5. Push to `main`. The workflow builds and deploys to
-   `https://<owner>.github.io/labinate-<app>/` — Pages is enabled
-   automatically on first run. Then follow `RELEASE_CHECKLIST.md`.
+   `https://<owner>.github.io/labinate-<app>/`.
+   Then follow `RELEASE_CHECKLIST.md`.
 
 ## Conventions
 
