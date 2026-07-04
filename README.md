@@ -9,8 +9,9 @@ Analytics and a monetization hook are baked in — no app ships without them.
 - **Vite + React + TypeScript** — static build, zero servers, free hosting.
 - **GitHub Actions → GitHub Pages** — push to `main` deploys automatically.
 - **PWA manifest** — installable on mobile without app-store cost.
-- **`src/lib/analytics.ts`** — vendor-neutral `track()`; configure
-  `VITE_ANALYTICS_ENDPOINT` to point events at a collector.
+- **`src/lib/analytics.ts`** — vendor-neutral `track()`; ships pre-wired to
+  the shared portfolio PostHog project via `.env.production`
+  (`VITE_ANALYTICS_ENDPOINT` + `VITE_ANALYTICS_KEY`, both safe to commit).
 - **`src/lib/monetization.ts`** — `requirePro()` paywall stub that tracks the
   purchase funnel (paywall_shown → purchase_clicked → purchase_completed).
 
@@ -30,8 +31,9 @@ Analytics and a monetization hook are baked in — no app ships without them.
 
 ## Conventions
 
-- `VITE_APP_ID` identifies the app in analytics. Set it in the workflow env
-  or a `.env` file (defaults to `unknown-app` — don't ship that).
+- `VITE_APP_ID` identifies the app in analytics. Set it in `.env.production`
+  (the template ships `rename-me` — don't ship that). Events for the whole
+  portfolio land in one PostHog project, segmented by the `app` property.
 - Versioning: bump `package.json` version on each release, tag `v<version>`.
 - Mobile/store path: `npx cap add ios|android` when an app earns it —
   the relative `base` in `vite.config.ts` already works in Capacitor webviews.
