@@ -30,6 +30,7 @@ upgrade. Not done; it is not in the shipped bundle.
    Accept this, or give each app its own key.
 2. **`$current_url: location.href`** sends the full URL, including query and `#hash`, with every event. An app that later puts
    tokens, e-mails or share codes in the URL would leak them to PostHog. Safer: `location.origin + location.pathname`.
+   **Fixed on `night2/M105`:** `safeUrl()` (origin + pathname) for `$current_url` and `referrer`, with tests; see README "Analytics & privacy".
 3. **No consent or opt-out.** A persistent `labinate_anon_id` is kept in localStorage and every event is sent. This may need a
    consent notice for EU users (legal call, not a code bug).
 4. **The paywall is not protection.** `isPro()` is `localStorage.labinate_pro === "1"`, and `requirePro()` unlocks for free when `confirm()` returns OK
