@@ -21,6 +21,7 @@ It is not related to the Nuxt `Labinate/labinate-boilerplate` (see the report).
 `npm audit fix` (without `--force`) changed only `package-lock.json` (commit `061d730`). The 2 that remain are
 dev-server-only advisories for vite ≤6.4.3 and esbuild ≤0.24.2. Fixing them needs vite 6+ (`--force` → vite 8), which is a major
 upgrade. Not done; it is not in the shipped bundle.
+**Tested on `night2/M112-opt-vitest-major` (2026-11-27): vitest 5.1.2 + vite 6.4.6** (vite major forced by vitest 5 peer `vite ^6.4`) — `npm audit` 0, 37/37 tests, typecheck/build green; JS bundle hash changes only because vite 6 wraps CommonJS (React) in lazy `require*()` (`strictRequires` default), app code unchanged. vitest 5 needs Node ≥22.12.
 
 ## Review: what is unsafe to copy into a new app (doc only; nothing here was zero-risk to change)
 1. **Shared PostHog key + endpoint in `.env.production`** (`VITE_ANALYTICS_KEY`, a `phc_…` public project key, also
